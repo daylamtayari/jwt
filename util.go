@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -39,4 +40,13 @@ func readStdin() string {
 		fatal(err)
 	}
 	return strings.TrimSpace(string(data))
+}
+
+// Must decodes the signature string or fatally exits
+func mustDecodeSig(sig string) []byte {
+	data, err := base64.RawURLEncoding.DecodeString(sig)
+	if err != nil {
+		fatal(err)
+	}
+	return data
 }
