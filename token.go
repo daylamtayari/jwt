@@ -17,7 +17,7 @@ type JWT struct {
 	Header       map[string]any `json:"header"`
 	Payload      map[string]any `json:"payload"`
 	Signature    string         `json:"signature"`
-	signingInput string
+	signingInput []byte
 }
 
 // Parses a JWT returning a JWT type and an error that is nil if successful
@@ -39,7 +39,7 @@ func Parse(token string) (JWT, error) {
 		Header:       header,
 		Payload:      payload,
 		Signature:    parts[2],
-		signingInput: parts[0] + "." + parts[1],
+		signingInput: []byte(parts[0] + "." + parts[1]),
 	}, nil
 }
 
