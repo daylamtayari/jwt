@@ -84,9 +84,29 @@ func main() {
 
 // Prints usage instructions
 func printUsage() {
-	fmt.Printf("%s\n", `Usage:
+	fmt.Println(`Usage: jwt [command] [options] <jwt>
 
-	`)
+JWT can be passed as an argument or via stdin.
+
+Commands:
+  decode              Decode a JWT and output as JSON (default)
+  data, payload       Output the payload
+  header, headers     Output the headers
+  sig                 Output the decoded signature bytes
+  verify              Verify the signature
+  valid               Check if the JWT is valid
+
+Options:
+  -k, --key <key>     Key for signature verification (file path or raw value)
+  -h, --help          Show this help message
+
+Examples:
+  jwt <jwt>
+  jwt decode <jwt>
+  echo <jwt> | jwt data
+  jwt verify -k secret <jwt>
+  jwt valid <jwt>
+  jwt valid -k secret <jwt>`)
 }
 
 // Retrieves token from arguments and if not present, from stdin
