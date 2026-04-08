@@ -14,9 +14,9 @@ var (
 
 // Represents a JWT and its part and their respective claims
 type JWT struct {
-	Header       map[string]any
-	Payload      map[string]any
-	Signature    string
+	Header       map[string]any `json:"header"`
+	Payload      map[string]any `json:"payload"`
+	Signature    string         `json:"signature"`
 	signingInput string
 }
 
@@ -55,4 +55,13 @@ func decodeComponent(seg string) (map[string]any, error) {
 	}
 
 	return claims, nil
+}
+
+// Wraps Parse but fatally exits if an error is encountered
+func mustParse(token string) JWT {
+	jwt, err := Parse(token)
+	if err != nil {
+		fatal(err)
+	}
+	return jwt
 }
