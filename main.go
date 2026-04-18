@@ -11,6 +11,10 @@ var (
 	ErrExpired    = errors.New("JWT is expired")
 	ErrInvalidExp = errors.New("invalid exp claim")
 	ErrNoKey      = errors.New("no key provided")
+
+	resetColour = "\033[0m"
+	redColour   = "\033[31m"
+	greenColour = "\033[32m"
 )
 
 func main() {
@@ -38,6 +42,22 @@ func main() {
 	case "header", "headers":
 		jwt := mustParse(getToken(args[1:]))
 		printJSON(jwt.Header)
+	case "exp", "expiry":
+		jwt := mustParse(getToken(args[1:]))
+		if exp, exists := jwt.Payload["exp"]; exists {
+			expVal, ok := exp.(float64)
+			if !ok {
+				fatal(ErrInvalidExp)
+			}
+			expiry := time.Unix(int64(expVal), 0)
+			if time.Now().UTC().Before(expiry) {
+				fmt.Printf("%s\n", greenColour+expiry.Format(time.RFC3339)+resetColour)
+			} else {
+				fmt.Printf("%s\n", redColour+expiry.Format(time.RFC3339)+resetColour)
+			}
+		} else {
+			return
+		}
 	case "sig":
 		jwt := mustParse(getToken(args[1:]))
 		os.Stdout.Write(mustDecodeSig(jwt.Signature))
@@ -92,6 +112,7 @@ Commands:
   decode              Decode a JWT and output as JSON (default)
   data, payload       Output the payload
   header, headers     Output the headers
+  exp, expiry         Output the expiry
   sig                 Output the decoded signature bytes
   verify              Verify the signature
   valid               Check if the JWT is valid

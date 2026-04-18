@@ -61,6 +61,9 @@ true
 
 $ jwt verify  --key a-string-secret-at-least-256-bits-long eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30
 true
+
+$ jwt exp eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzY1MjIxOTJ9.Jl7h5Sq3yFRoG0Jc7-MXvXqBEev8-lkrgFH0duGfUyA                                                                   
+2026-04-18T09:23:12-05:00
 ```
 
 ## License
