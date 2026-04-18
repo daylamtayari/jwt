@@ -4,6 +4,18 @@ Simple dependency-free, pipeline-friendly CLI utility to decode and verify JWTs
 
 You can extract the parts as well as check the expiration and signature, with the utility exiting with code 1 if unsuccessful.
 
+## Installation
+
+### Go Install
+
+```
+go install github.com/daylamtayari/jwt@latest
+```
+
+### Binaries
+
+You can download and use the pre-built binaries that are in the release tab: https://github.com/daylamtayari/jwt/releases
+
 ## Usage
 
 ```
